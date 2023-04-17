@@ -1,17 +1,48 @@
 import 'dart:ui';
-
 import 'package:FAC/screens/schedule.dart';
 import 'package:FAC/screens/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:FAC/animation/FadeAnimation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'Parent View/parent_homepage.dart';
 import 'Signup_glassBox.dart';
 import 'homepage.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
+  static Future<User> loginUsingEmailPassword(
+       { String email,
+         String password,
+         BuildContext context}) async {
+     FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword
+          (email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if(e.code =="user-not-found"){
+        print("No user found for that email");
+      }
+    }
+    return user;
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // bottomNavigationBar: GNav(rippleColor: Colors.red,
@@ -42,7 +73,8 @@ class LoginPage extends StatelessWidget {
       //       },),
       //   ],
       // ),
-      body:
+      body:SafeArea(
+        child:
       Container(
         decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage('assets/w.jpg'),
@@ -58,12 +90,12 @@ class LoginPage extends StatelessWidget {
             FadeAnimation(1.2,
                 Container(
                   height: 300,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(''),
-
-                      )
-                  ),
+                  // decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       // image: AssetImage(''),
+                  //
+                  //     )
+                  // ),
                   child:
                   Center(
                     child: Login_glassBox(),
@@ -78,29 +110,57 @@ class LoginPage extends StatelessWidget {
               color: Colors.black,
               child: Text('Login',
                 style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16.0, color: Colors.white)),),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Dashboard()),
-                );
-              },
+              onPressed: () async {
+                User user = await loginUsingEmailPassword(email: _email.text,
+                    password: _password.text,
+                    context: context);
+                print(user);
+                if (user != null) {
+                  // Navigator.push(context,MaterialPageRoute(builder: (context) => Dashboard()),
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Parenthomepage()),
+                  );
+                }
+                if (_email == null || _email.text
+                    .trim()
+                    .toString()
+                    .isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please enter your email address'),
+                    ),
+                  );
+                } else if (_password == null || _password.text
+                    .trim()
+                    .toString()
+                    .isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please enter password'),
+                    ),
+                  );
+                }
+
+              }
             )),
           ],
 
         ),
 
       ),
-
+      ),
     );
   }
 }
+
 final _borderRadius = BorderRadius.circular(20);
 
 class Login_glassBox extends StatelessWidget {
-  String _name, _email;
 
-  TextEditingController _password = TextEditingController();
-  TextEditingController _confirmpassword = TextEditingController();
+  // TextEditingController _password = TextEditingController();
+  // TextEditingController _confirmpassword = TextEditingController();
+
+
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -183,6 +243,11 @@ class Login_glassBox extends StatelessWidget {
   }
 }
 
+TextEditingController _email= TextEditingController();
+TextEditingController _password= TextEditingController();
+
+
+
 Widget makeEmail({label, obscureText = false}) {
   return Column(
     children: <Widget>[
@@ -191,7 +256,8 @@ Widget makeEmail({label, obscureText = false}) {
           fontWeight: FontWeight.w400,
           color: Colors.white
       ),),
-      TextField(style: TextStyle(color: Colors.white),
+      TextField(
+        style: TextStyle(color: Colors.white),
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
@@ -203,6 +269,7 @@ Widget makeEmail({label, obscureText = false}) {
           labelText: 'Email',
           labelStyle: GoogleFonts.poppins(color: Colors.white),
         ),
+        controller: _email,
       ),
 
     ],
@@ -221,7 +288,8 @@ Widget makePassword({label, obscureText = false}) {
           color: Colors.white
       ),),
 
-      TextField(style: TextStyle(color: Colors.white),
+      TextField(
+        style: TextStyle(color: Colors.white),
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
@@ -233,6 +301,7 @@ Widget makePassword({label, obscureText = false}) {
           labelText: 'Password',
           labelStyle: GoogleFonts.poppins(color: Colors.white),
         ),
+        controller: _password,
       ),
 
     ],

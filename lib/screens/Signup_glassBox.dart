@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:FAC/animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 final _borderRadius = BorderRadius.circular(20);
 

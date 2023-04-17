@@ -33,37 +33,42 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   google_fonts: ^4.0.3
   get: ^4.6.5
-  flutter_launcher_icons: ^0.11.0
   badges: ^2.0.2
   auto_size_text: ^3.0.0
   curved_navigation_bar: ^1.0.3
   bottom_navy_bar: ^6.0.0
   google_nav_bar: ^5.0.6
   calendar_view: ^1.0.3
-  animated_text_kit: ^4.2.2
+  #animated_text_kit: ^4.2.2
+  cloud_firestore: ^3.1.14
+  firebase_auth: ^3.3.14
+  firebase_core:
+  firebase_core_platform_interface: 4.5.1
+  path_provider: ^2.0.14
+
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.11.0"
-  path_provider:
-  provider: ^6.0.2
+  flutter_launcher_icons: "^0.13.0"
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/1112.png"
+  image_path: "assets/111.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "assets/1112.png"
+    image_path: "assets/111.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "assets/1112.png"
+    image_path: "assets/111.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "assets/1112.png"
+    image_path: "assets/111.png"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.FAC">
+    package="com.example.rare_signup"
+
+    >
    <application
         android:label="FAC"
         android:name="${applicationName}"

@@ -2,8 +2,13 @@ import 'package:FAC/screens/Parent%20View/parentschedule.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../alpha.dart';
 import '../login.dart';
+import '../schedule.dart';
+import '../signup.dart';
 import 'childreg.dart';
+
+
 class Parenthomepage extends StatefulWidget {
   const Parenthomepage({Key key}) : super(key: key);
   @override
@@ -38,7 +43,7 @@ class _ParenthomepageState extends State<Parenthomepage> {
 
           ListTile(
             leading: const Icon(
-              Icons.arrow_back_outlined,
+              Icons.exit_to_app,
             ),
             title: const Text(
               'Logout',
@@ -47,6 +52,20 @@ class _ParenthomepageState extends State<Parenthomepage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.person,
+            ),
+            title: const Text(
+              'User Panel',
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ScreenMain()),
               );
             },
           ),
@@ -60,7 +79,7 @@ class _ParenthomepageState extends State<Parenthomepage> {
         centerTitle: true,
         title:
         Text(
-          "Parent Home",
+          "Admin Panel",
           selectionColor: Colors.red,
         ),
         actions: [
@@ -80,7 +99,7 @@ class _ParenthomepageState extends State<Parenthomepage> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChildReg()),
+                      MaterialPageRoute(builder: (context) =>  SchedulePage()),
                     );
                   },
                   child: Padding(
@@ -106,7 +125,7 @@ class _ParenthomepageState extends State<Parenthomepage> {
                             SizedBox(height: 15,),
                             Icon(FontAwesomeIcons.addressBook,size: 68,color: Colors.red,),
                             SizedBox(height: 10,),
-                            Text("Register Your Child", style: GoogleFonts.poppins(fontSize: 10,color: Colors.grey,fontWeight: FontWeight.w500),),
+                            Text("Schedule", style: GoogleFonts.poppins(fontSize: 10,color: Colors.grey,fontWeight: FontWeight.w500),),
                           ],
                         ),
                       ),
@@ -118,7 +137,7 @@ class _ParenthomepageState extends State<Parenthomepage> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Parentschedule()),
+                      MaterialPageRoute(builder: (context) => ShiftsPage()),
                     );
                   },
                   child: Padding(
@@ -155,8 +174,6 @@ class _ParenthomepageState extends State<Parenthomepage> {
                 SizedBox(
                   width: 5,
                 ),
-
-
               ],
             ),
           ],

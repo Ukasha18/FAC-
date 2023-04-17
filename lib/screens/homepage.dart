@@ -12,10 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../animation/FadeAnimation.dart';
+import 'login.dart';
 
 class Dashboard extends StatelessWidget {
   final List<String> imagesList = [
-    'assets/az.png',
+    'assets/az.PNG',
     'assets/salah.jpg',
     'assets/Magista.jpg'
   ];
@@ -23,7 +24,8 @@ class Dashboard extends StatelessWidget {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(drawer: Drawer(
+    return Scaffold(
+      drawer: Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -57,13 +59,16 @@ class Dashboard extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
-              Icons.arrow_back_outlined,
+              Icons.admin_panel_settings_sharp,
             ),
             title: const Text(
-              'Back',
+              'Admin Panel',
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
             },
           ),
         ],
@@ -80,38 +85,41 @@ class Dashboard extends StatelessWidget {
           selectionColor: Colors.red,
         ),
         actions: [
+
         ],
       ),
-      bottomNavigationBar: GNav(rippleColor: Colors.red,
-        color: Colors.black,
-        tabBackgroundColor: Colors.red.withOpacity(0.1),
-        tabs: [
-          GButton(icon: Icons.home, text: 'Home',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
-              );
-            },
-          ),
-          GButton(icon: Icons.schedule, text: 'Schedule',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => schedule()),
-              );
-            },
-          ),
-          GButton(icon: Icons.person, text: 'Register',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignupPage()),
-              );
-            },),
-        ],
-      ),
-      body: SingleChildScrollView(
+      // bottomNavigationBar: GNav(rippleColor: Colors.red,
+      //   color: Colors.black,
+      //   tabBackgroundColor: Colors.red.withOpacity(0.1),
+      //   tabs: [
+      //     GButton(icon: Icons.home, text: 'Home',
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => Dashboard()),
+      //         );
+      //       },
+      //     ),
+      //     GButton(icon: Icons.schedule, text: 'Schedule',
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => schedule()),
+      //         );
+      //       },
+      //     ),
+      //     GButton(icon: Icons.person, text: 'Register',
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => SignupPage()),
+      //         );
+      //       },),
+      //   ],
+      // ),
+      body:  SafeArea(
+        child:
+      SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -125,7 +133,7 @@ class Dashboard extends StatelessWidget {
                     .map((item) =>
                     Container(
                   child: Center(
-                      child: Image.network(
+                      child: Image.asset(
                         item,
                         fit: BoxFit.cover,
                         height: MediaQuery.of(context).size.height,
@@ -237,6 +245,7 @@ class Dashboard extends StatelessWidget {
 
         ),
 
+      ),
       ),
     );
   }
